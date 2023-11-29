@@ -3,7 +3,7 @@ name: Delete Workflow Runs
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: "https://github.com/schawnndubois/DevOps-Portfolio/blob/master/.github/workflows/main.yml"  # Replace with your actual workflow name
+    workflows: "https://api.github.com/repos/schawnndubois/DevOps-Portfolio/actions/workflows/main.yml"  # Replace with your actual workflow name
     types:
       - completed
 
@@ -19,7 +19,7 @@ jobs:
 
       - name: List workflow runs
         run: |
-          runs=$(gh run list --limit 500 --workflow 'https://github.com/schawnndubois/DevOps-Portfolio/blob/master/.github/workflows/main.yml' --json databaseId | jq -r '.[] | .databaseId | @sh')
+          runs=$(gh run list --limit 500 --workflow 'https://api.github.com/repos/schawnndubois/DevOps-Portfolio/actions/workflows/main.yml' --json databaseId | jq -r '.[] | .databaseId | @sh')
           echo "Workflow runs to delete: $runs"
 
       - name: Delete workflow runs
