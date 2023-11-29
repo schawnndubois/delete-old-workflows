@@ -1,0 +1,24 @@
+name: Delete Workflow Runs
+
+on:
+  workflow_run:
+    workflows: ["schawnndubois/DevOps-Portfolio/.github/workflows/main.yml"]  # Replace with your actual workflow name
+    types:
+      - completed
+
+jobs:
+  delete_runs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: List workflow runs
+        run: |
+          runs=$(gh run list --limit 500 --workflow '<your-workflow-name>' --json databaseId | jq -r '.[] | .databaseId | @sh')
+          echo "Workflow runs to delete: $runs"
+
+      - name: Delete workflow runs
+        run: |
+          echo "$runs" | xargs -I{} gh run delete {}
