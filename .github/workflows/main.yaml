@@ -16,12 +16,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: List workflow runs
-        run: |
-          runs=$(gh run list --limit 500 --workflow 'https://api.github.com/repos/schawnndubois/DevOps-Portfolio/actions/workflows/main.yml' --json databaseId | jq -r '.[] | .databaseId | @sh')
-          echo "Workflow runs to delete: $runs"
-
-      - name: Delete workflow runs
-        run: |
-          echo "$runs" | xargs -I{} gh run delete {}
+      - name: test
+        run: curl -X PUT \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer $schawnnduboistoken" \
+            https://api.github.com/repos/schawnndubois/DevOps-Portfolio/contents/.github/workflows/Netlify Deploy \
+            -d '{
+            "message": "Disable workflow",
+            "content": "'$(echo -n "enabled: false" | base64)'",
+            "sha": "the-sha-of-your-existing-file"
+            }'
