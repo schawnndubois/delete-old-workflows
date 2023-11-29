@@ -1,6 +1,7 @@
 name: Delete Workflow Runs
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["schawnndubois/DevOps-Portfolio/.github/workflows/main.yml"]  # Replace with your actual workflow name
     types:
