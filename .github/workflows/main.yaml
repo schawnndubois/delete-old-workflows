@@ -10,8 +10,7 @@ on:
 jobs:
   delete_runs:
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
 
     steps:
       - name: Checkout code
@@ -20,7 +19,7 @@ jobs:
         run: |
           curl -X PUT \
             -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: Bearer $schawnnduboistoken" \
+            -H "Authorization: Bearer  ${{ secrets.TOKEN }}" \
             https://api.github.com/repos/schawnndubois/DevOps-Portfolio/contents/.github/workflows/Netlify Deploy \
             -d '{
             "message": "Disable workflow",
