@@ -12,11 +12,11 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: List workflow runs
         run: |
-          runs=$(gh run list --limit 500 --workflow '<your-workflow-name>' --json databaseId | jq -r '.[] | .databaseId | @sh')
+          runs=$(gh run list --limit 500 --workflow 'schawnndubois/DevOps-Portfolio/.github/workflows/main.yml' --json databaseId | jq -r '.[] | .databaseId | @sh')
           echo "Workflow runs to delete: $runs"
 
       - name: Delete workflow runs
